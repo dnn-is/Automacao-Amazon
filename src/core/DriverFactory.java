@@ -5,7 +5,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class DriverFactory {
 	
-	private static WebDriver driver;
+	
+	
+private static WebDriver driver;
 	
 
 	public DriverFactory() {
@@ -17,7 +19,7 @@ public class DriverFactory {
 
 	public static WebDriver inicializaDriverFactory() {
 
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Dennis\\Documents\\Curso_Selenium\\chromedriver\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "C:\\Chromedriver\\chromedriver.exe");
 		driver = new ChromeDriver();
 		return driver;
 	}
@@ -29,4 +31,5 @@ public class DriverFactory {
 			driver = null;
 		}
 	}
+
 }
