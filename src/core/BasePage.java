@@ -69,7 +69,7 @@ public class BasePage extends DriverFactory implements Atributes {
 	
 	public void moveToElement(WebElement element) {
 		waitToBeVisible(element);
-		action.moveToElement(element);
+		action.moveToElement(element).build().perform();
 	}
 	
 	
