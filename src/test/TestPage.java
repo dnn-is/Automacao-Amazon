@@ -1,5 +1,8 @@
 package test;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+
 import org.junit.Test;
 
 import core.BasePage;
@@ -10,7 +13,7 @@ public class TestPage extends BasePage {
 	PageLogin login = new PageLogin();
 	
 	@Test
-	public void test() {
+	public void test() throws MalformedURLException, IOException{
 		login.login(user,password);
 	}
 

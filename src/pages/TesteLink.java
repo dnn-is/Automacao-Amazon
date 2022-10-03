@@ -1,34 +1,24 @@
 package pages;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 import core.BasePage;
 
-public class PageLogin extends BasePage {
+public class TesteLink extends BasePage {
 
-	@FindBy(xpath = "//div[@id='nav-tools']//span[@id='nav-link-accountList-nav-line-1']")
-	WebElement loginArea;
-
-	@FindBy(xpath = "//div[@id='nav-flyout-ya-signin']//span[@class='nav-action-inner']")
-	WebElement loginButton;
-
-	@FindBy(xpath = "//div[@id='navFooter']")
-	WebElement footerArea;
-
-	public void login(String user, String password) throws MalformedURLException, IOException{
-		openInitialPage(url);
-		
-		List<WebElement> links = driver.findElements(By.xpath("//div[@id='navFooter']//a"));
+	@Test
+	public void test() throws InterruptedException, IOException {
+		openInitialPage("https://www.hyrtutorials.com/");
+		List<WebElement> links = driver.findElements(By.tagName("a"));
 		System.out.println(links.size());
 
 		for (WebElement link : links) {
@@ -46,8 +36,6 @@ public class PageLogin extends BasePage {
 			}
 
 		}
-		moveToElement(loginArea);
-		click(loginButton);
-	}
 
+	}
 }
