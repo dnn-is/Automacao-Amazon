@@ -15,6 +15,7 @@ public class TestPage extends BasePage {
 	@Test
 	public void test() throws MalformedURLException, IOException{
 		login.login(user,password);
+		driver.quit();
 	}
 
 }

@@ -1,20 +1,20 @@
 package core;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.openqa.selenium.By;
+import javax.net.ssl.HttpsURLConnection;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.asserts.SoftAssert;
 
 public class BasePage extends DriverFactory implements Atributes {
 
@@ -77,20 +77,20 @@ public class BasePage extends DriverFactory implements Atributes {
 		action.moveToElement(element).build().perform();
 	}
 
-	public void testBrokenLinks(WebElement area) throws MalformedURLException, IOException {
-		List<WebElement> links = area.findElements(By.tagName("a"));
-		SoftAssert softAssert = new SoftAssert();
-
-		for (WebElement link : links) {
-			HttpURLConnection connection = (HttpURLConnection) new URL(link.getAttribute("href")).openConnection();
-			connection.setRequestMethod("HEAD");
-			connection.connect();
-			int responseCode = connection.getResponseCode();
-			System.out.println("Link: " + link.getText() + " | Response conde: " + responseCode);
-			softAssert.assertTrue(responseCode < 400,
-					"Text with the broken link is: " + link.getText() + " | Response code: " + responseCode);
+	public void testBrokenLink(WebElement link) throws MalformedURLException, IOException {
+		String linkURL = link.getAttribute("href");
+		URL url = new URL(linkURL);
+		URLConnection urlConnection = url.openConnection();
+		HttpsURLConnection httpURLConnection = (HttpsURLConnection) urlConnection;
+		httpURLConnection.setConnectTimeout(5000);
+		httpURLConnection.connect();
+		int responseCode = httpURLConnection.getResponseCode();
+		if (responseCode == 200) {
+			System.out.println(linkURL + " - " + responseCode + " - " + httpURLConnection.getResponseMessage());
+		} else {
+			System.err.println(linkURL + " - "+httpURLConnection.getResponseMessage());
 		}
-		softAssert.assertAll();
+
 	}
 
 }
