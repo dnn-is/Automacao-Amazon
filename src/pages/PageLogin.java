@@ -40,12 +40,12 @@ public class PageLogin extends BasePage {
 	public void login(String user, String password) throws MalformedURLException, IOException {
 		openInitialPage(url);
 
-		List<WebElement> links = footerArea.findElements(By.xpath("//div[@id='navFooter']//a"));
-		System.out.println(links.size());
-
-		for (WebElement link : links) {
-			testBrokenLink(link);
-		}
+//		List<WebElement> links = footerArea.findElements(By.xpath("//div[@id='navFooter']//a"));
+//		System.out.println(links.size());
+//
+//		for (WebElement link : links) {
+//			testBrokenLink(link);
+//		}
 		
 		moveToElement(loginArea);
 		click(loginButton);

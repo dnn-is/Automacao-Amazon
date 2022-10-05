@@ -80,23 +80,20 @@ public class BasePage extends DriverFactory implements Atributes {
 	}
 
 	public void testBrokenLink(WebElement link) throws MalformedURLException, IOException {
-		SoftAssert softAssert = new SoftAssert();
+//		SoftAssert softAssert = new SoftAssert();
 		String linkURL = link.getAttribute("href");
 		URL url = new URL(linkURL);
 		URLConnection urlConnection = url.openConnection();
 		HttpsURLConnection httpURLConnection = (HttpsURLConnection) urlConnection;
-		httpURLConnection.setConnectTimeout(5000);
+		httpURLConnection.setConnectTimeout(10000);
 		httpURLConnection.connect();
 		int responseCode = httpURLConnection.getResponseCode();
 		if (responseCode == 200) {
 			System.out.println(linkURL + " - " + responseCode + " - " + httpURLConnection.getResponseMessage());
-			Assert.assertTrue(true);
 		} else {
-			System.err.println(linkURL + " - "+httpURLConnection.getResponseMessage());
-			
+			System.err.println(linkURL + " - " + responseCode + " - " + httpURLConnection.getResponseMessage());
 		}
-		
-		softAssert.assertTrue(responseCode<400, "Text with the broken link is: " + link.getText() + " | Response code: " + responseCode);
+//		softAssert.assertTrue(responseCode<400, "Text with the broken link is: " + link.getText() + " | Response code: " + responseCode);
 
 	}
 
