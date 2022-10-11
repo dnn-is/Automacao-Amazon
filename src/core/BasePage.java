@@ -6,6 +6,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -41,6 +42,15 @@ public class BasePage extends DriverFactory implements Atributes {
 	public void openInitialPage(String url) {
 		driver.get(url);
 		driver.manage().window().maximize();
+	}
+	
+	public boolean isElementVisible(WebElement element) {
+		try {
+			
+			return true;
+		} catch (NoSuchElementException e) {
+			return false;
+		}
 	}
 
 	public void sendKeys(WebElement element, String text) {

@@ -15,7 +15,7 @@ public class TestPage extends BasePage {
 	OfertasDoDiaPage ofertasDoDia = new OfertasDoDiaPage();
 	
 	@Test
-	public void test() throws MalformedURLException, IOException{
+	public void test() throws MalformedURLException, IOException, InterruptedException{
 		login.login(user,password);
 		ofertasDoDia.verificarLinksDosItens();
 //		driver.quit();

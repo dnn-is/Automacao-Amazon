@@ -31,7 +31,10 @@ public class OfertasDoDiaPage extends BasePage {
 	@FindBy(xpath = "//input[@id='add-to-cart-button']")
 	WebElement adicionarAoCarrinho;
 
-	public void verificarLinksDosItens() throws MalformedURLException, IOException {
+	@FindBy(xpath = "//div[@id='topBannerContainer']")
+	WebElement promotionBanner;
+
+	public void verificarLinksDosItens() throws MalformedURLException, IOException, InterruptedException {
 		click(ofertasDoDia);
 //		List<WebElement> linksOfertasDoDia = driver.findElements(By.xpath(
 //				"//div[@data-testid='grid-deals-container']//div[@class='DealGridItem-module__dealItemDisplayGrid_e7RQVFWSOrwXBX4i24Tqg DealGridItem-module__withBorders_2jNNLI6U1oDls7Ten3Dttl DealGridItem-module__withoutActionButton_2OI8DAanWNRCagYDL2iIqN']//a"));
@@ -41,26 +44,32 @@ public class OfertasDoDiaPage extends BasePage {
 //		}
 		click(alimentosEBebidas);
 		waitToBeVisible(primeiroItem);
-		List<WebElement> produtosDoDia = driver.findElements(By.xpath(
-				"//div[@class='Grid-module__gridDisplayGrid_2X7cDTY7pjoTwwvSRQbt9Y']//div[@class='a-image-container a-dynamic-image-container aok-align-center-horizontally DealImage-module__image_1aM-S1pMSsajamWgCRXa6y DealImage-module__imageAspectRatioFix_DJdrM5BSpMhSiPB6czCA4']"));
 
-		int intervalo = produtosDoDia.size();
+		List<WebElement> descontosDoDia = driver
+				.findElements(By.xpath("//div[@class='DealContent-module__truncate_sWbxETx42ZPStTc9jwySW']"));
+		int produtosDoDia = descontosDoDia.size();
 
-		int produtoAtual = 1;
-		while (produtoAtual <= intervalo) {
+		for (int produtoAtual = 1; produtoAtual <= produtosDoDia; produtoAtual++) {
+			Thread.sleep(2000);
 			WebElement produto = driver.findElement(By.xpath(
-					"(//div[@class='Grid-module__gridDisplayGrid_2X7cDTY7pjoTwwvSRQbt9Y']//div[@class='a-image-container a-dynamic-image-container aok-align-center-horizontally DealImage-module__image_1aM-S1pMSsajamWgCRXa6y DealImage-module__imageAspectRatioFix_DJdrM5BSpMhSiPB6czCA4'])["
-							+ produtoAtual + "]"));
-			waitToBeClickable(produto);
+					"(//div[@class='DealContent-module__truncate_sWbxETx42ZPStTc9jwySW'])[" + produtoAtual + "]"));
 			click(produto);
-			Select dropdown = new Select(dropdownQuantidade);
-			dropdown.selectByValue(quantity);
-			click(adicionarAoCarrinho);
-			click(ofertasDoDia);
-			click(alimentosEBebidas);
-			produtoAtual++;
+			if (isElementVisible(promotionBanner)) {
+				click(ofertasDoDia);
+				click(alimentosEBebidas);
+				continue;
+			} else {
+				if (isElementVisible(dropdownQuantidade)) {
+					Select dropdown = new Select(dropdownQuantidade);
+					dropdown.selectByValue(quantity);
+				}
+
+				click(adicionarAoCarrinho);
+				click(ofertasDoDia);
+				click(alimentosEBebidas);
+			}
+
 		}
 
 	}
-
 }
