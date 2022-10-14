@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -33,6 +34,12 @@ public class OfertasDoDiaPage extends BasePage {
 
 	@FindBy(xpath = "//div[@id='topBannerContainer']")
 	WebElement promotionBanner;
+	
+	@FindBy(xpath = "//label[.='Alimentos e Bebidas']//input")
+	WebElement foodAndBeverages;
+	
+	@FindBy(xpath = "//label[.='Bebidas Alcoólicas']//input")
+	WebElement alcoholicBeverages;
 
 	public void verificarLinksDosItens() throws MalformedURLException, IOException, InterruptedException {
 		click(ofertasDoDia);
@@ -44,30 +51,26 @@ public class OfertasDoDiaPage extends BasePage {
 //		}
 		click(alimentosEBebidas);
 		waitToBeVisible(primeiroItem);
+		Assert.assertTrue(foodAndBeverages.isSelected());
+		Assert.assertTrue(alcoholicBeverages.isSelected());
+		
+		
 
 		List<WebElement> descontosDoDia = driver
 				.findElements(By.xpath("//div[@class='DealContent-module__truncate_sWbxETx42ZPStTc9jwySW']"));
 		int produtosDoDia = descontosDoDia.size();
 
-		for (int produtoAtual = 1; produtoAtual <= produtosDoDia; produtoAtual++) {
+		for (int produtoAtual = 2; produtoAtual <= 6; produtoAtual++) {
 			Thread.sleep(2000);
 			WebElement produto = driver.findElement(By.xpath(
 					"(//div[@class='DealContent-module__truncate_sWbxETx42ZPStTc9jwySW'])[" + produtoAtual + "]"));
 			click(produto);
-			if (isElementVisible(promotionBanner)) {
-				click(ofertasDoDia);
-				click(alimentosEBebidas);
-				continue;
-			} else {
-				if (isElementVisible(dropdownQuantidade)) {
-					Select dropdown = new Select(dropdownQuantidade);
-					dropdown.selectByValue(quantity);
-				}
-
-				click(adicionarAoCarrinho);
-				click(ofertasDoDia);
-				click(alimentosEBebidas);
-			}
+			
+			Select dropdown = new Select(dropdownQuantidade);
+			dropdown.selectByValue(quantity);
+			click(adicionarAoCarrinho);
+			click(ofertasDoDia);
+			click(alimentosEBebidas);
 
 		}
 

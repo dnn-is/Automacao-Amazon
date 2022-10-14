@@ -10,14 +10,12 @@ import java.util.NoSuchElementException;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.asserts.SoftAssert;
 
 public class BasePage extends DriverFactory implements Atributes {
 
@@ -90,7 +88,6 @@ public class BasePage extends DriverFactory implements Atributes {
 	}
 
 	public void testBrokenLink(WebElement link) throws MalformedURLException, IOException {
-//		SoftAssert softAssert = new SoftAssert();
 		String linkURL = link.getAttribute("href");
 		URL url = new URL(linkURL);
 		URLConnection urlConnection = url.openConnection();
@@ -103,7 +100,7 @@ public class BasePage extends DriverFactory implements Atributes {
 		} else {
 			System.err.println(linkURL + " - " + responseCode + " - " + httpURLConnection.getResponseMessage());
 		}
-//		softAssert.assertTrue(responseCode<400, "Text with the broken link is: " + link.getText() + " | Response code: " + responseCode);
+
 
 	}
 
