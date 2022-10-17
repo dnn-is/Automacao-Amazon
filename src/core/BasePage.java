@@ -6,10 +6,10 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -44,7 +44,7 @@ public class BasePage extends DriverFactory implements Atributes {
 	
 	public boolean isElementVisible(WebElement element) {
 		try {
-			
+			element.isDisplayed();
 			return true;
 		} catch (NoSuchElementException e) {
 			return false;

@@ -32,16 +32,22 @@ public class OfertasDoDiaPage extends BasePage {
 	@FindBy(xpath = "//input[@id='add-to-cart-button']")
 	WebElement adicionarAoCarrinho;
 
-	@FindBy(xpath = "//div[@id='topBannerContainer']")
-	WebElement promotionBanner;
-	
 	@FindBy(xpath = "//label[.='Alimentos e Bebidas']//input")
 	WebElement foodAndBeverages;
-	
+
 	@FindBy(xpath = "//label[.='Bebidas Alcoólicas']//input")
 	WebElement alcoholicBeverages;
 
-	public void verificarLinksDosItens() throws MalformedURLException, IOException, InterruptedException {
+	@FindBy(xpath = "//div[@class='a-accordion-row-a11y']")
+	WebElement specialCondition;
+
+	@FindBy(xpath = "//i[@class='a-icon a-accordion-radio a-icon-radio-inactive']")
+	WebElement specialOffer;
+
+	@FindBy(xpath = "//div[@id='promotionTitle']")
+	WebElement promotionTitle;
+
+	public void adicionarAoCarrinho() throws MalformedURLException, IOException, InterruptedException {
 		click(ofertasDoDia);
 //		List<WebElement> linksOfertasDoDia = driver.findElements(By.xpath(
 //				"//div[@data-testid='grid-deals-container']//div[@class='DealGridItem-module__dealItemDisplayGrid_e7RQVFWSOrwXBX4i24Tqg DealGridItem-module__withBorders_2jNNLI6U1oDls7Ten3Dttl DealGridItem-module__withoutActionButton_2OI8DAanWNRCagYDL2iIqN']//a"));
@@ -53,24 +59,48 @@ public class OfertasDoDiaPage extends BasePage {
 		waitToBeVisible(primeiroItem);
 		Assert.assertTrue(foodAndBeverages.isSelected());
 		Assert.assertTrue(alcoholicBeverages.isSelected());
-		
-		
 
 		List<WebElement> descontosDoDia = driver
 				.findElements(By.xpath("//div[@class='DealContent-module__truncate_sWbxETx42ZPStTc9jwySW']"));
-		int produtosDoDia = descontosDoDia.size();
 
-		for (int produtoAtual = 2; produtoAtual <= 6; produtoAtual++) {
-			Thread.sleep(2000);
+		for (int produtoAtual = 1; produtoAtual <= descontosDoDia.size(); produtoAtual++) {
+			Thread.sleep(1500);
 			WebElement produto = driver.findElement(By.xpath(
 					"(//div[@class='DealContent-module__truncate_sWbxETx42ZPStTc9jwySW'])[" + produtoAtual + "]"));
 			click(produto);
-			
-			Select dropdown = new Select(dropdownQuantidade);
-			dropdown.selectByValue(quantity);
-			click(adicionarAoCarrinho);
-			click(ofertasDoDia);
-			click(alimentosEBebidas);
+			System.out.println(produtoAtual);
+
+			if (isElementVisible(specialCondition)) {
+				if (!isElementVisible(adicionarAoCarrinho)) {
+					click(ofertasDoDia);
+					click(alimentosEBebidas);
+					continue;
+				}
+				click(specialOffer);
+				if (isElementVisible(dropdownQuantidade)) {
+					Select dropdown = new Select(dropdownQuantidade);
+					dropdown.selectByValue(quantity);
+				}
+				click(adicionarAoCarrinho);
+				click(ofertasDoDia);
+				click(alimentosEBebidas);
+			} else if (isElementVisible(promotionTitle)) {
+				click(ofertasDoDia);
+				click(alimentosEBebidas);
+			} else {
+				if (!isElementVisible(adicionarAoCarrinho)) {
+					click(ofertasDoDia);
+					click(alimentosEBebidas);
+					continue;
+				}
+				if (isElementVisible(dropdownQuantidade)) {
+					Select dropdown = new Select(dropdownQuantidade);
+					dropdown.selectByValue(quantity);
+				}
+				click(adicionarAoCarrinho);
+				click(ofertasDoDia);
+				click(alimentosEBebidas);
+			}
 
 		}
 

@@ -11,10 +11,24 @@ public class CarrinhoPage extends BasePage {
 
 	public void limparCarrinho() {
 		List<WebElement> clearCartItens = driver.findElements(By.xpath("//input[@value='Excluir']"));
+		
+		
 		for (int currentDelete = clearCartItens.size(); currentDelete >= 1; currentDelete--) {
-			WebElement delete = driver.findElement(By.xpath("(//input[@value='Excluir'])["+currentDelete+"]"));
-			waitToBeClickable(delete);
-			click(delete);
+			
+			
+			try {
+				WebElement delete = driver.findElement(By.xpath("(//input[@value='Excluir'])["+currentDelete+"]"));
+				waitToBeClickable(delete);
+				click(delete);
+			}
+			catch(org.openqa.selenium.StaleElementReferenceException ex)
+			{
+				WebElement delete = driver.findElement(By.xpath("(//input[@value='Excluir'])["+currentDelete+"]"));
+				waitToBeClickable(delete);
+				click(delete);
+			}
+			
+			
 		}
 
 	}
