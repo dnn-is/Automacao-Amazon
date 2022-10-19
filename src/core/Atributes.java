@@ -15,5 +15,6 @@ public interface Atributes {
 	String neighborhood = "Jaguaribe";
 	String city = "João Pessoa";
 	String state = "PB";
+	String cpf = "96196203053";
 
 }

@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import core.BasePage;
 
@@ -50,6 +51,12 @@ public class CarrinhoPage extends BasePage {
 
 	@FindBy(xpath = "//input[@id='address-ui-widgets-enterAddressStateOrRegion']")
 	WebElement stateField;
+	
+	@FindBy(xpath = "//span[@id='address-ui-widgets-form-submit-button']")
+	WebElement useThisAddress;
+	
+	@FindBy(xpath ="//input[@id='taxid-field']")
+	WebElement cpfField;
 
 	public void limparCarrinho() {
 		List<WebElement> clearCartItens = driver.findElements(By.xpath("//input[@value='Excluir']"));
@@ -75,22 +82,27 @@ public class CarrinhoPage extends BasePage {
 		click(closeOrder);
 		click(countries);
 		click(currentCountry);
+		
 		nameField.clear();
+
+		sendKeys(postalCodeField, postalCode);
 		sendKeys(nameField, name);
 		sendKeys(cellField, cellNumber);
-		sendKeys(postalCodeField, postalCode);
+		
+		wait.until(ExpectedConditions.attributeToBeNotEmpty(addressField, "value"));
+		
 		sendKeys(houseNumberField, houseNumber);
 		sendKeys(complementField, complement);
 
-		Thread.sleep(1500); //Subsituir o sleep por um wait
-		
-		
-
 		Assert.assertEquals(streetName, addressField.getAttribute("value"));
-//		Assert.assertEquals(houseNumber, houseNumberField.getAttribute("value"));
+		Assert.assertEquals(houseNumber, houseNumberField.getAttribute("value"));
 		Assert.assertEquals(neighborhood, neighborhoodField.getAttribute("value"));
 		Assert.assertEquals(city, cityField.getAttribute("value"));
 		Assert.assertEquals(state, stateField.getAttribute("value"));
+		click(useThisAddress);
+		
+		
+		
 
 	}
 

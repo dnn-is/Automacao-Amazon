@@ -19,7 +19,7 @@ public class TestPage extends BasePage {
 	@Test
 	public void test() throws MalformedURLException, IOException, InterruptedException{
 		login.login(user,password);
-//		ofertasDoDia.adicionarAoCarrinho();
+		ofertasDoDia.adicionarAoCarrinho();
 		carrinho.finalizarCompras();
 		driver.quit();
 	}

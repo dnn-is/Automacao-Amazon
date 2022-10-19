@@ -64,10 +64,10 @@ public class PageLogin extends BasePage {
 		Assert.assertEquals("Olá, Dennis", presentationArea.getText());
 		int cartNumber = Integer.parseInt(cartQuantity.getText());
 
-//		if (cartNumber > 0) {
-//			click(cart);
-//			carrinho.limparCarrinho();
-//		}
+		if (cartNumber > 0) {
+			click(cart);
+			carrinho.limparCarrinho();
+		}
 
 	}
 

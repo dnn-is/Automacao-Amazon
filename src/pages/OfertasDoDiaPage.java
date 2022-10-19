@@ -47,6 +47,12 @@ public class OfertasDoDiaPage extends BasePage {
 	@FindBy(xpath = "//div[@id='promotionTitle']")
 	WebElement promotionTitle;
 
+	@FindBy(xpath = "//img[@src='https://images-na.ssl-images-amazon.com/images/G/32/error/pt_BR/title._TTD_.png']")
+	WebElement invalidPage;
+
+	@FindBy(xpath = "//img[@id='b']")
+	WebElement home;
+
 	public void adicionarAoCarrinho() throws MalformedURLException, IOException, InterruptedException {
 		click(ofertasDoDia);
 //		List<WebElement> linksOfertasDoDia = driver.findElements(By.xpath(
@@ -68,7 +74,7 @@ public class OfertasDoDiaPage extends BasePage {
 			WebElement produto = driver.findElement(By.xpath(
 					"(//div[@class='DealContent-module__truncate_sWbxETx42ZPStTc9jwySW'])[" + produtoAtual + "]"));
 			click(produto);
-			System.out.println(produtoAtual);
+			
 
 			if (isElementVisible(specialCondition)) {
 				if (!isElementVisible(adicionarAoCarrinho)) {
@@ -87,11 +93,18 @@ public class OfertasDoDiaPage extends BasePage {
 			} else if (isElementVisible(promotionTitle)) {
 				click(ofertasDoDia);
 				click(alimentosEBebidas);
+			} else if (isElementVisible(invalidPage)) {
+				click(home);
+				click(ofertasDoDia);
+				click(alimentosEBebidas);
+				continue;
+
 			} else {
 				if (!isElementVisible(adicionarAoCarrinho)) {
 					click(ofertasDoDia);
 					click(alimentosEBebidas);
 					continue;
+
 				}
 				if (isElementVisible(dropdownQuantidade)) {
 					Select dropdown = new Select(dropdownQuantidade);

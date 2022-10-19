@@ -20,7 +20,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class BasePage extends DriverFactory implements Atributes {
 
 	public static WebDriver driver = inicializaDriverFactory();
-	WebDriverWait wait = new WebDriverWait(driver, 5);
+	public static WebDriverWait wait = new WebDriverWait(driver, 5);
 	Actions action = new Actions(driver);
 
 	public BasePage() {
