@@ -1,8 +1,28 @@
-## Processo automatizado de compras no site da Amazon
-# ![java70x70](https://user-images.githubusercontent.com/84586733/203627329-26633541-db09-40bb-b19a-36b6c1ea0701.png) ![eclipse70x70](https://user-images.githubusercontent.com/84586733/203627361-8fe2020d-605e-455c-994e-90e90ccae8e5.png) ![selenium70x70](https://user-images.githubusercontent.com/84586733/203627395-bbed2e9f-138d-44ec-b03e-fd5a5a4f0cd9.png)
+## Processo automatizado de adição e exclusão de produtos no site da Amazon
+### Este é um projeto de testes funcionais de interface do usuário, utilizando a liguagen Java e o framework Selenium Webdriver.
 
-![imagem_2022-11-23_155933868_resized](https://user-images.githubusercontent.com/84586733/203627458-b89c2d04-5e0f-4b49-addb-49ebd9b98fff.png)
+### Passos que o script excecuta
+DADO que o usuário entre no site https://www.amazon.com.br
+&nbsp;
 
-https://www.loom.com/share/057ebddbd36547478b33d1f1e7ecc93c
+QUANDO entra na aba Ofertas do dia
+&nbsp;
+
+ENTAO deve adicionar todos os produtos disponíveis da primeira página ao carrinho
+&nbsp;
+
+
+#### [Vídeo com a execução do script](https://www.loom.com/share/057ebddbd36547478b33d1f1e7ecc93c)
+
+### Para a execução do projeto baixe e instale:
+[JDK 11](https://www.oracle.com/br/java/technologies/javase/jdk11-archive-downloads.html)
+
+[Eclipse IDE](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2023-03/R/eclipse-inst-jre-win64.exe)
+
+### Após baixar e instalar a JDK no seu computador, basta configurar a variável de ambiente (JAVA_HOME) assim como mostra a imagem abaixo:
+
+![Variaveis de ambiente](https://github.com/dnn-is/IMDB-Web/assets/84586733/3667aa51-c8e3-4e16-966f-e8495b6d254c)
+
+### Após instalar a IDE Eclipse, basta baixar o projeto e executá-lo.
 
 
